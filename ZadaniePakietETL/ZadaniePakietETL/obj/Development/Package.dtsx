@@ -1,0 +1,1866 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="8/10/2025 5:57:04 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="V22Q9KY"
+  DTS:CreatorName="V22Q9KY\AdrianS"
+  DTS:DTSID="{49FB4F08-E0AC-4AD3-BC37-749461BA373A}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="16.0.5685.2"
+  DTS:LocaleID="1045"
+  DTS:ObjectName="Package"
+  DTS:PackageType="5"
+  DTS:VersionBuild="111"
+  DTS:VersionGUID="{F6E516CB-78E4-456D-ABC2-435004559614}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[localhost.ZadaniePaketETL1]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{DEBF2635-AA58-45C0-90A2-16E50109E296}"
+      DTS:ObjectName="localhost.ZadaniePaketETL1">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=localhost;Initial Catalog=ZadaniePaketETL;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;Application Name=SSIS-Package-{DEBF2635-AA58-45C0-90A2-16E50109E296}localhost.ZadaniePaketETL1;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{7AE19280-285D-4AEA-81E3-4FF61D16C989}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="Currency">
+      <DTS:VariableValue
+        DTS:DataType="8">EUR</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{814FCE61-97BF-44F2-9173-40E22E2D0922}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="CurrentDate">
+      <DTS:VariableValue
+        DTS:DataType="7">1/1/2020</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{8D459BEE-90A9-41D7-85BB-F31B1C0A7223}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="GETDATE()"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="EndDate">
+      <DTS:VariableValue
+        DTS:DataType="7">8/17/2025 3:44:12 PM</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{48A9C44E-E718-4B4D-BFD8-2BDE74DC1C7A}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="IsFirstRun">
+      <DTS:VariableValue
+        DTS:DataType="11">-1</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{FEC4731D-7535-4848-BFFE-673DE264F77A}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="IsTableEmpty">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{FD96CD5E-FA0D-41A0-AD22-5537DC8F1082}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="StartDate">
+      <DTS:VariableValue
+        DTS:DataType="7">1/1/2020</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Expression Czy piersze wykonanie"
+      DTS:CreationName="Microsoft.ExpressionTask"
+      DTS:Description="Expression Task"
+      DTS:DTSID="{E2925708-42EF-4712-8C5E-E851D837EA9D}"
+      DTS:ExecutableType="Microsoft.ExpressionTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Expression Czy piersze wykonanie"
+      DTS:TaskContact="Expression Task;Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <ExpressionTask
+          Expression="@[User::IsFirstRun] = ( @[User::IsTableEmpty] == 0 ) ? TRUE : FALSE" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Expression Ustawienie dat"
+      DTS:CreationName="Microsoft.ExpressionTask"
+      DTS:Description="Expression Task"
+      DTS:DTSID="{11CA45DA-2917-4C32-BEF5-AEA5A96BB884}"
+      DTS:ExecutableType="Microsoft.ExpressionTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Expression Ustawienie dat"
+      DTS:TaskContact="Expression Task;Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <ExpressionTask
+          Expression="@User::StartDate = ( @[User::IsFirstRun] ) ? (DT_DATE)&quot;2020-01-01&quot; : DATEADD(&quot;day&quot;, -1, GETDATE())" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Foreach Loop Container Pętla po walutach"
+      DTS:CreationName="STOCK:FOREACHLOOP"
+      DTS:Description="Foreach Loop Container Pętla po walutach"
+      DTS:DTSID="{4083F6A9-2BA5-42C9-8D24-C788C1471848}"
+      DTS:ExecutableType="STOCK:FOREACHLOOP"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Foreach Loop Container Pętla po walutach">
+      <DTS:ForEachEnumerator
+        DTS:CreationName="Microsoft.ForEachItemEnumerator"
+        DTS:DTSID="{7A1ACA53-79E2-4255-A843-8C77B3C36FF5}"
+        DTS:ObjectName="{7A1ACA53-79E2-4255-A843-8C77B3C36FF5}">
+        <DTS:ObjectData>
+          <FEIEItems>
+            <FEIEItem>
+              <FEIEItemValue
+                Type="8"
+                Value="EUR" />
+            </FEIEItem>
+            <FEIEItem>
+              <FEIEItemValue
+                Type="8"
+                Value="USD" />
+            </FEIEItem>
+            <FEIEItem>
+              <FEIEItemValue
+                Type="8"
+                Value="GBP" />
+            </FEIEItem>
+          </FEIEItems>
+        </DTS:ObjectData>
+      </DTS:ForEachEnumerator>
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach"
+          DTS:AssignExpression="@[User::CurrentDate] = DATEADD(&quot;day&quot;, 1, @[User::CurrentDate])"
+          DTS:CreationName="STOCK:FORLOOP"
+          DTS:Description="For Loop Container Pętla po datach"
+          DTS:DTSID="{3A0FCC7B-D9B7-451D-BB2F-FA65DE9BD5C5}"
+          DTS:EvalExpression="@[User::CurrentDate] &lt;= @[User::EndDate]"
+          DTS:ExecutableType="STOCK:FORLOOP"
+          DTS:InitExpression="@[User::CurrentDate] = @[User::StartDate]"
+          DTS:LocaleID="-1"
+          DTS:MaxConcurrent="1"
+          DTS:ObjectName="For Loop Container Pętla po datach">
+          <DTS:Variables />
+          <DTS:Executables>
+            <DTS:Executable
+              DTS:refId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli"
+              DTS:CreationName="Microsoft.Pipeline"
+              DTS:Description="Data Flow Task Pobranie i wczytanie danych do tabeli"
+              DTS:DTSID="{EA05B8D6-1F39-466D-B6D1-061C86B0E5AF}"
+              DTS:ExecutableType="Microsoft.Pipeline"
+              DTS:LocaleID="-1"
+              DTS:ObjectName="Data Flow Task Pobranie i wczytanie danych do tabeli"
+              DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+              <DTS:Variables />
+              <DTS:ObjectData>
+                <pipeline
+                  version="1">
+                  <components>
+                    <component
+                      refId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\Data Conversion"
+                      componentClassID="Microsoft.DataConvert"
+                      contactInfo="Data Conversion;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+                      description="Data Conversion"
+                      name="Data Conversion"
+                      usesDispositions="true">
+                      <inputs>
+                        <input
+                          refId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\Data Conversion.Inputs[Data Conversion Input]"
+                          name="Data Conversion Input">
+                          <inputColumns>
+                            <inputColumn
+                              refId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\Data Conversion.Inputs[Data Conversion Input].Columns[Waluta]"
+                              cachedCodepage="1250"
+                              cachedDataType="str"
+                              cachedLength="3"
+                              cachedName="Waluta"
+                              lineageId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\Script Component Dane z serwisu NBP.Outputs[Output0].Columns[Waluta]" />
+                            <inputColumn
+                              refId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\Data Conversion.Inputs[Data Conversion Input].Columns[DataKursu]"
+                              cachedDataType="date"
+                              cachedName="DataKursu"
+                              lineageId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\Script Component Dane z serwisu NBP.Outputs[Output0].Columns[DataKursu]" />
+                            <inputColumn
+                              refId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\Data Conversion.Inputs[Data Conversion Input].Columns[WartoscKursu]"
+                              cachedDataType="decimal"
+                              cachedName="WartoscKursu"
+                              cachedScale="4"
+                              lineageId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\Script Component Dane z serwisu NBP.Outputs[Output0].Columns[WartoscKursu]" />
+                            <inputColumn
+                              refId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\Data Conversion.Inputs[Data Conversion Input].Columns[DataPobrania]"
+                              cachedDataType="dbTimeStamp"
+                              cachedName="DataPobrania"
+                              lineageId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\Derived Column.Outputs[Derived Column Output].Columns[DataPobrania]" />
+                          </inputColumns>
+                          <externalMetadataColumns />
+                        </input>
+                      </inputs>
+                      <outputs>
+                        <output
+                          refId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\Data Conversion.Outputs[Data Conversion Output]"
+                          exclusionGroup="1"
+                          name="Data Conversion Output"
+                          synchronousInputId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\Data Conversion.Inputs[Data Conversion Input]">
+                          <outputColumns>
+                            <outputColumn
+                              refId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Waluta]"
+                              codePage="1250"
+                              dataType="str"
+                              errorOrTruncationOperation="Conversion"
+                              errorRowDisposition="FailComponent"
+                              length="3"
+                              lineageId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of Waluta]"
+                              name="Copy of Waluta"
+                              truncationRowDisposition="FailComponent">
+                              <properties>
+                                <property
+                                  containsID="true"
+                                  dataType="System.Int32"
+                                  description="Specifies the input column used as the source of data for the conversion."
+                                  name="SourceInputColumnLineageID">#{Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\Script Component Dane z serwisu NBP.Outputs[Output0].Columns[Waluta]}</property>
+                                <property
+                                  dataType="System.Boolean"
+                                  description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                                  name="FastParse">false</property>
+                              </properties>
+                            </outputColumn>
+                            <outputColumn
+                              refId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of DataKursu]"
+                              dataType="date"
+                              errorOrTruncationOperation="Conversion"
+                              errorRowDisposition="FailComponent"
+                              lineageId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of DataKursu]"
+                              name="Copy of DataKursu"
+                              truncationRowDisposition="FailComponent">
+                              <properties>
+                                <property
+                                  containsID="true"
+                                  dataType="System.Int32"
+                                  description="Specifies the input column used as the source of data for the conversion."
+                                  name="SourceInputColumnLineageID">#{Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\Script Component Dane z serwisu NBP.Outputs[Output0].Columns[DataKursu]}</property>
+                                <property
+                                  dataType="System.Boolean"
+                                  description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                                  name="FastParse">false</property>
+                              </properties>
+                            </outputColumn>
+                            <outputColumn
+                              refId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of WartoscKursu]"
+                              dataType="decimal"
+                              errorOrTruncationOperation="Conversion"
+                              errorRowDisposition="FailComponent"
+                              lineageId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of WartoscKursu]"
+                              name="Copy of WartoscKursu"
+                              scale="4"
+                              truncationRowDisposition="FailComponent">
+                              <properties>
+                                <property
+                                  containsID="true"
+                                  dataType="System.Int32"
+                                  description="Specifies the input column used as the source of data for the conversion."
+                                  name="SourceInputColumnLineageID">#{Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\Script Component Dane z serwisu NBP.Outputs[Output0].Columns[WartoscKursu]}</property>
+                                <property
+                                  dataType="System.Boolean"
+                                  description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                                  name="FastParse">false</property>
+                              </properties>
+                            </outputColumn>
+                            <outputColumn
+                              refId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of DataPobrania]"
+                              dataType="dbTimeStamp"
+                              errorOrTruncationOperation="Conversion"
+                              errorRowDisposition="FailComponent"
+                              lineageId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\Data Conversion.Outputs[Data Conversion Output].Columns[Copy of DataPobrania]"
+                              name="Copy of DataPobrania"
+                              truncationRowDisposition="FailComponent">
+                              <properties>
+                                <property
+                                  containsID="true"
+                                  dataType="System.Int32"
+                                  description="Specifies the input column used as the source of data for the conversion."
+                                  name="SourceInputColumnLineageID">#{Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\Derived Column.Outputs[Derived Column Output].Columns[DataPobrania]}</property>
+                                <property
+                                  dataType="System.Boolean"
+                                  description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                                  name="FastParse">false</property>
+                              </properties>
+                            </outputColumn>
+                          </outputColumns>
+                          <externalMetadataColumns />
+                        </output>
+                        <output
+                          refId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\Data Conversion.Outputs[Data Conversion Error Output]"
+                          exclusionGroup="1"
+                          isErrorOut="true"
+                          name="Data Conversion Error Output"
+                          synchronousInputId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\Data Conversion.Inputs[Data Conversion Input]">
+                          <outputColumns>
+                            <outputColumn
+                              refId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                              dataType="i4"
+                              lineageId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                              name="ErrorCode"
+                              specialFlags="1" />
+                            <outputColumn
+                              refId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                              dataType="i4"
+                              lineageId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                              name="ErrorColumn"
+                              specialFlags="2" />
+                          </outputColumns>
+                          <externalMetadataColumns />
+                        </output>
+                      </outputs>
+                    </component>
+                    <component
+                      refId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\Derived Column"
+                      componentClassID="Microsoft.DerivedColumn"
+                      contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+                      description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+                      name="Derived Column"
+                      usesDispositions="true">
+                      <inputs>
+                        <input
+                          refId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\Derived Column.Inputs[Derived Column Input]"
+                          description="Input to the Derived Column Transformation"
+                          name="Derived Column Input">
+                          <externalMetadataColumns />
+                        </input>
+                      </inputs>
+                      <outputs>
+                        <output
+                          refId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\Derived Column.Outputs[Derived Column Output]"
+                          description="Default Output of the Derived Column Transformation"
+                          exclusionGroup="1"
+                          name="Derived Column Output"
+                          synchronousInputId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\Derived Column.Inputs[Derived Column Input]">
+                          <outputColumns>
+                            <outputColumn
+                              refId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\Derived Column.Outputs[Derived Column Output].Columns[DataPobrania]"
+                              dataType="dbTimeStamp"
+                              errorOrTruncationOperation="Computation"
+                              errorRowDisposition="FailComponent"
+                              lineageId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\Derived Column.Outputs[Derived Column Output].Columns[DataPobrania]"
+                              name="DataPobrania"
+                              truncationRowDisposition="FailComponent">
+                              <properties>
+                                <property
+                                  containsID="true"
+                                  dataType="System.String"
+                                  description="Derived Column Expression"
+                                  name="Expression">[GETDATE]()</property>
+                                <property
+                                  containsID="true"
+                                  dataType="System.String"
+                                  description="Derived Column Friendly Expression"
+                                  expressionType="Notify"
+                                  name="FriendlyExpression">GETDATE()</property>
+                              </properties>
+                            </outputColumn>
+                          </outputColumns>
+                          <externalMetadataColumns />
+                        </output>
+                        <output
+                          refId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\Derived Column.Outputs[Derived Column Error Output]"
+                          description="Error Output of the Derived Column Transformation"
+                          exclusionGroup="1"
+                          isErrorOut="true"
+                          name="Derived Column Error Output"
+                          synchronousInputId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\Derived Column.Inputs[Derived Column Input]">
+                          <outputColumns>
+                            <outputColumn
+                              refId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                              dataType="i4"
+                              lineageId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                              name="ErrorCode"
+                              specialFlags="1" />
+                            <outputColumn
+                              refId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                              dataType="i4"
+                              lineageId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                              name="ErrorColumn"
+                              specialFlags="2" />
+                          </outputColumns>
+                          <externalMetadataColumns />
+                        </output>
+                      </outputs>
+                    </component>
+                    <component
+                      refId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\OLE DB Destination"
+                      componentClassID="Microsoft.OLEDBDestination"
+                      contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                      description="OLE DB Destination"
+                      name="OLE DB Destination"
+                      usesDispositions="true"
+                      version="4">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                          name="CommandTimeout">0</property>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the name of the database object used to open a rowset."
+                          name="OpenRowset">[dbo].[KursyWalut]</property>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the variable that contains the name of the database object used to open a rowset."
+                          name="OpenRowsetVariable"></property>
+                        <property
+                          dataType="System.String"
+                          description="The SQL command to be executed."
+                          name="SqlCommand"
+                          UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the column code page to use when code page information is unavailable from the data source."
+                          name="DefaultCodePage">1250</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Forces the use of the DefaultCodePage property value when describing character data."
+                          name="AlwaysUseDefaultCodePage">false</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the mode used to access the database."
+                          name="AccessMode"
+                          typeConverter="AccessMode">3</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                          name="FastLoadKeepIdentity">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                          name="FastLoadKeepNulls">false</property>
+                        <property
+                          dataType="System.String"
+                          description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                          name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                          name="FastLoadMaxInsertCommitSize">2147483647</property>
+                      </properties>
+                      <connections>
+                        <connection
+                          refId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\OLE DB Destination.Connections[OleDbConnection]"
+                          connectionManagerID="Package.ConnectionManagers[localhost.ZadaniePaketETL1]"
+                          connectionManagerRefId="Package.ConnectionManagers[localhost.ZadaniePaketETL1]"
+                          description="The OLE DB runtime connection used to access the database."
+                          name="OleDbConnection" />
+                      </connections>
+                      <inputs>
+                        <input
+                          refId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                          errorOrTruncationOperation="Insert"
+                          errorRowDisposition="FailComponent"
+                          hasSideEffects="true"
+                          name="OLE DB Destination Input">
+                          <inputColumns>
+                            <inputColumn
+                              refId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Waluta]"
+                              cachedCodepage="1250"
+                              cachedDataType="str"
+                              cachedLength="3"
+                              cachedName="Waluta"
+                              externalMetadataColumnId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Waluta]"
+                              lineageId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\Script Component Dane z serwisu NBP.Outputs[Output0].Columns[Waluta]" />
+                            <inputColumn
+                              refId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[DataKursu]"
+                              cachedDataType="date"
+                              cachedName="DataKursu"
+                              externalMetadataColumnId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DataKursu]"
+                              lineageId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\Script Component Dane z serwisu NBP.Outputs[Output0].Columns[DataKursu]" />
+                            <inputColumn
+                              refId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[WartoscKursu]"
+                              cachedDataType="decimal"
+                              cachedName="WartoscKursu"
+                              cachedScale="4"
+                              externalMetadataColumnId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[WartoscKursu]"
+                              lineageId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\Script Component Dane z serwisu NBP.Outputs[Output0].Columns[WartoscKursu]" />
+                            <inputColumn
+                              refId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[DataPobrania]"
+                              cachedDataType="dbTimeStamp"
+                              cachedName="DataPobrania"
+                              externalMetadataColumnId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DataPobrania]"
+                              lineageId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\Derived Column.Outputs[Derived Column Output].Columns[DataPobrania]" />
+                          </inputColumns>
+                          <externalMetadataColumns
+                            isUsed="True">
+                            <externalMetadataColumn
+                              refId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Id]"
+                              dataType="i4"
+                              name="Id" />
+                            <externalMetadataColumn
+                              refId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Waluta]"
+                              codePage="1250"
+                              dataType="str"
+                              length="3"
+                              name="Waluta" />
+                            <externalMetadataColumn
+                              refId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DataKursu]"
+                              dataType="dbDate"
+                              name="DataKursu" />
+                            <externalMetadataColumn
+                              refId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[WartoscKursu]"
+                              dataType="numeric"
+                              name="WartoscKursu"
+                              precision="10"
+                              scale="4" />
+                            <externalMetadataColumn
+                              refId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DataPobrania]"
+                              dataType="dbTimeStamp"
+                              name="DataPobrania" />
+                          </externalMetadataColumns>
+                        </input>
+                      </inputs>
+                      <outputs>
+                        <output
+                          refId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                          exclusionGroup="1"
+                          isErrorOut="true"
+                          name="OLE DB Destination Error Output"
+                          synchronousInputId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                          <outputColumns>
+                            <outputColumn
+                              refId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                              dataType="i4"
+                              lineageId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                              name="ErrorCode"
+                              specialFlags="1" />
+                            <outputColumn
+                              refId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                              dataType="i4"
+                              lineageId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                              name="ErrorColumn"
+                              specialFlags="2" />
+                          </outputColumns>
+                          <externalMetadataColumns />
+                        </output>
+                      </outputs>
+                    </component>
+                    <component
+                      refId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\Script Component Dane z serwisu NBP"
+                      componentClassID="Microsoft.ManagedComponentHost"
+                      contactInfo="Includes and runs custom script code. For example, apply a business rule that limits the range of valid values in an &quot;income&quot; column or add values in two columns and calculate the average of the sum.;Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;13"
+                      description="Includes and runs custom script code. For example, apply a business rule that limits the range of valid values in an &quot;income&quot; column or add values in two columns and calculate the average of the sum."
+                      localeId="1045"
+                      name="Script Component Dane z serwisu NBP"
+                      version="13">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Stores the source code of the component"
+                          isArray="true"
+                          name="SourceCode"
+                          state="cdata">
+                          <arrayElements
+                            arrayElementCount="33">
+                            <arrayElement
+                              dataType="System.String"><![CDATA[ComponentWrapper.cs]]></arrayElement>
+                            <arrayElement
+                              dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                            <arrayElement
+                              dataType="System.String"><![CDATA[/* THIS IS AUTO-GENERATED CODE THAT WILL BE OVERWRITTEN! DO NOT EDIT!
+*  Microsoft SQL Server Integration Services component wrapper
+*  This module defines the base class for your component
+*  THIS IS AUTO-GENERATED CODE THAT WILL BE OVERWRITTEN! DO NOT EDIT! */
+
+using System;
+using System.Data;
+using Microsoft.SqlServer.Dts.Pipeline;
+using Microsoft.SqlServer.Dts.Pipeline.Wrapper;
+using Microsoft.SqlServer.Dts.Runtime.Wrapper;
+
+public class UserComponent: ScriptComponent
+{
+    public Connections Connections;
+    public Variables Variables;
+    public UserComponent()
+    {
+        Connections = new Connections(this);
+        Variables = new Variables(this);
+    }
+
+    public Output0Buffer Output0Buffer;
+
+    public virtual void FinishOutputs()
+    {
+    }
+
+    private void MarkOutputsFinished()
+    {
+
+        if (null != Output0Buffer)
+        {
+            Output0Buffer.SetEndOfRowset();
+            Output0Buffer = null;
+        }
+
+    }
+
+    public override void PrimeOutput(int Outputs, int[] OutputIDs, PipelineBuffer[] Buffers, OutputNameMap OutputMap)
+    {
+       for(int Idx = 0; Idx < Outputs; Idx++)
+       {
+            if(OutputIDs[Idx] == GetOutputID(OutputMap, @"Output0"))
+            {
+                Output0Buffer = new Output0Buffer(Buffers[Idx], GetColumnIndexes(OutputIDs[Idx]), OutputMap);
+            }
+        }
+
+        CreateNewOutputRows();
+
+        FinishOutputs();
+        MarkOutputsFinished();
+
+    }
+
+    public virtual void CreateNewOutputRows()
+    {
+    }
+
+}
+
+public class Connections
+{
+    ScriptComponent ParentComponent;
+
+    public Connections(ScriptComponent Component)
+    {
+        ParentComponent = Component;
+    }
+
+}
+
+public class Variables
+{
+    ScriptComponent ParentComponent;
+
+    public Variables(ScriptComponent Component)
+    {
+        ParentComponent = Component;
+    }
+
+    public String Currency
+    {
+        get
+        {
+            return (String)(ParentComponent.ReadOnlyVariables["Currency"].GetValueWithContext(ScriptComponent.EvaluatorContext));
+        }
+    }
+
+    public DateTime CurrentDate
+    {
+        get
+        {
+            return (DateTime)(ParentComponent.ReadOnlyVariables["CurrentDate"].GetValueWithContext(ScriptComponent.EvaluatorContext));
+        }
+    }
+
+}
+]]></arrayElement>
+                            <arrayElement
+                              dataType="System.String"><![CDATA[Properties\Resources.resx]]></arrayElement>
+                            <arrayElement
+                              dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                            <arrayElement
+                              dataType="System.String"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+</root>]]></arrayElement>
+                            <arrayElement
+                              dataType="System.String"><![CDATA[main.cs]]></arrayElement>
+                            <arrayElement
+                              dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                            <arrayElement
+                              dataType="System.String"><![CDATA[
+
+using System;
+using System.Net;
+using System.Net.Http;
+using System.IO;
+using System.Net.Http.Headers;
+using System.Security.Cryptography;
+using System.Text;
+using Newtonsoft.Json;
+
+public class ExchangeRate
+{
+    public string code { get; set; }
+    public Rate[] rates { get; set; }
+}
+
+public class Rate
+{
+    public string effectiveDate { get; set; }
+    public decimal mid { get; set; }
+}
+
+
+[Microsoft.SqlServer.Dts.Pipeline.SSISScriptComponentEntryPointAttribute]
+public class ScriptMain : UserComponent
+{
+    public override void PreExecute()
+    {
+        base.PreExecute();
+    }
+
+    public override void PostExecute()
+    {
+        base.PostExecute();
+    }
+
+    public override void CreateNewOutputRows()
+    {
+        string currency = Variables.Currency;
+        string date = Variables.CurrentDate.ToString("yyyy-MM-dd");
+        string url = $"http://api.nbp.pl/api/exchangerates/rates/a/{currency}/{date}/?format=json";
+        string json = "";
+
+        this.ComponentMetaData.FireInformation(0, "ScriptComponent", $"Rozpoczęto pobieranie danych dla {currency} z dnia {date}, urs: {url}", String.Empty, 0, false);
+
+        try
+        {
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+            request.Method = "GET";
+            request.Timeout = 5000;
+            using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+            using (StreamReader reader = new StreamReader(response.GetResponseStream()))
+            {
+                json = reader.ReadToEnd();
+            }
+            ExchangeRate exchangeRate = JsonConvert.DeserializeObject<ExchangeRate>(json);
+
+
+            string code =  exchangeRate.code;
+            string effectiveDate =  exchangeRate.rates[0].effectiveDate;
+            decimal mid =  exchangeRate.rates[0].mid;
+
+            this.ComponentMetaData.FireInformation(0, "ScriptComponent", $"Pobrano dane dla {currency} z dnia {date}, response: {json}", String.Empty, 0, false);
+
+            Output0Buffer.AddRow();
+            Output0Buffer.Waluta = code;
+            Output0Buffer.DataKursu = DateTime.ParseExact(effectiveDate, "yyyy-MM-dd", null);
+            Output0Buffer.WartoscKursu = mid;
+        }
+        catch (Exception ex)
+        {
+            // Obsługa błędów, np. dni, w których nie ma sesji NBP
+            this.ComponentMetaData.FireWarning(0, "Script Component", $"Błąd podczas pobierania danych dla {currency} z dnia {date}: {ex.Message}", "", 0);
+        }
+    }
+}
+]]></arrayElement>
+                            <arrayElement
+                              dataType="System.String"><![CDATA[BufferWrapper.cs]]></arrayElement>
+                            <arrayElement
+                              dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                            <arrayElement
+                              dataType="System.String"><![CDATA[/* THIS IS AUTO-GENERATED CODE THAT WILL BE OVERWRITTEN! DO NOT EDIT!
+*  Microsoft SQL Server Integration Services buffer wrappers
+*  This module defines classes for accessing data flow buffers
+*  THIS IS AUTO-GENERATED CODE THAT WILL BE OVERWRITTEN! DO NOT EDIT! */
+
+
+
+using System;
+using System.Data;
+using Microsoft.SqlServer.Dts.Pipeline;
+using Microsoft.SqlServer.Dts.Pipeline.Wrapper;
+
+public class Output0Buffer: ScriptBuffer
+
+{
+    public Output0Buffer(PipelineBuffer Buffer, int[] BufferColumnIndexes, OutputNameMap OutputMap)
+        : base(Buffer, BufferColumnIndexes, OutputMap)
+    {
+    }
+
+    public String Waluta
+    {
+        set
+        {
+            this[0] = value;
+        }
+    }
+    public bool Waluta_IsNull
+    {
+        set
+        {
+            if (value)
+            {
+                SetNull(0);
+            }
+            else
+            {
+                throw new InvalidOperationException("IsNull property cannot be set to False. Assign a value to the column instead.");
+            }
+        }
+    }
+
+    public DateTime DataKursu
+    {
+        set
+        {
+            this[1] = value;
+        }
+    }
+    public bool DataKursu_IsNull
+    {
+        set
+        {
+            if (value)
+            {
+                SetNull(1);
+            }
+            else
+            {
+                throw new InvalidOperationException("IsNull property cannot be set to False. Assign a value to the column instead.");
+            }
+        }
+    }
+
+    public Decimal WartoscKursu
+    {
+        set
+        {
+            this[2] = value;
+        }
+    }
+    public bool WartoscKursu_IsNull
+    {
+        set
+        {
+            if (value)
+            {
+                SetNull(2);
+            }
+            else
+            {
+                throw new InvalidOperationException("IsNull property cannot be set to False. Assign a value to the column instead.");
+            }
+        }
+    }
+
+    new public void AddRow()
+    {
+        base.AddRow();
+    }
+
+    new public void SetEndOfRowset()
+    {
+        base.SetEndOfRowset();
+    }
+
+    new public bool EndOfRowset()
+    {
+        return base.EndOfRowset();
+    }
+
+}
+]]></arrayElement>
+                            <arrayElement
+                              dataType="System.String"><![CDATA[Properties\Settings.Designer.cs]]></arrayElement>
+                            <arrayElement
+                              dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                            <arrayElement
+                              dataType="System.String"><![CDATA[//------------------------------------------------------------------------------
+// <auto-generated>
+//     This code was generated by a tool.
+//
+//     Changes to this file may cause incorrect behavior and will be lost if
+//     the code is regenerated.
+// </auto-generated>
+//------------------------------------------------------------------------------
+
+[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="SC_272fe906c7c7440ab6ebe318bfda4cd6.Properties.Settings.get_Default():SC_272fe906c7c7440ab6ebe318bfda4cd6.Properties.Sett" +
+    "ings")]
+
+namespace SC_272fe906c7c7440ab6ebe318bfda4cd6.Properties {
+    
+    
+    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
+        
+        [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
+        private static Settings defaultInstance = new Settings();
+        
+        public static Settings Default {
+            get {
+                return defaultInstance;
+            }
+        }
+    }
+}
+]]></arrayElement>
+                            <arrayElement
+                              dataType="System.String"><![CDATA[SC_272fe906c7c7440ab6ebe318bfda4cd6.csproj]]></arrayElement>
+                            <arrayElement
+                              dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                            <arrayElement
+                              dataType="System.String"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectTypeGuids>{30D016F9-3734-4E33-A861-5E7D899E18F3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{8941A7D2-D9BB-4B53-A918-428A808D1748}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SC_272fe906c7c7440ab6ebe318bfda4cd6</RootNamespace>
+    <AssemblyName>SC_272fe906c7c7440ab6ebe318bfda4cd6</AssemblyName>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>true</ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>
+    <TargetFrameworkProfile></TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>.\bin\Debug\</OutputPath>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>false</DebugSymbols>
+    <Optimize>true</Optimize>
+    <OutputPath>.\bin\Release\</OutputPath>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>C:\Users\AdrianS\AppData\Local\Temp\Vsta\SSIS_SC160\VstatMfIBAYw70OOp0uVPbHIHA\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.SqlServer.TxScript, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Reference Include="Microsoft.SqlServer.DTSRuntimeWrap, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Reference Include="Microsoft.SqlServer.DTSPipelineWrap, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Reference Include="Microsoft.SqlServer.PipelineHost, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Compile Include="main.cs" />
+    <Compile Include="BufferWrapper.cs" />
+    <Compile Include="ComponentWrapper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <AppDesigner Include="Properties\" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <!-- Include the build rules for a C# project.-->
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- This section defines VSTA properties that describe the host-changable project properties. -->
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{30D016F9-3734-4E33-A861-5E7D899E18F3}">
+        <ProjectProperties HostName="VSTAHostName" HostPackage="{B3A685AA-7EAF-4BC6-9940-57959FA5AC07}" ApplicationType="usd" Language="cs" TemplatesPath="" />
+        <Host Name="ScriptComponent" IconIndex="0" />
+        <ProjectClient>
+          <HostIdentifier>SSIS_SC160</HostIdentifier>
+        </ProjectClient>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>]]></arrayElement>
+                            <arrayElement
+                              dataType="System.String"><![CDATA[packages.config]]></arrayElement>
+                            <arrayElement
+                              dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                            <arrayElement
+                              dataType="System.String"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
+<packages>
+  <package id="Newtonsoft.Json" version="13.0.3" targetFramework="net472" />
+</packages>]]></arrayElement>
+                            <arrayElement
+                              dataType="System.String"><![CDATA[Project]]></arrayElement>
+                            <arrayElement
+                              dataType="System.String"><![CDATA[UTF16LE]]></arrayElement>
+                            <arrayElement
+                              dataType="System.String"><![CDATA[<?xml version="1.0" encoding="UTF-16" standalone="yes"?>
+<c:Project xmlns:c="http://schemas.microsoft.com/codeprojectml/2010/08/main" xmlns:msb="http://schemas.microsoft.com/developer/msbuild/2003" runtimeVersion="4.0" schemaVersion="1.0">
+  <msb:PropertyGroup>
+    <msb:CodeName>SC_272fe906c7c7440ab6ebe318bfda4cd6</msb:CodeName>
+    <msb:Language>msBuild</msb:Language>
+    <msb:DisplayName>SC_272fe906c7c7440ab6ebe318bfda4cd6</msb:DisplayName>
+    <msb:ProjectId>{CEECBD62-7C5E-4FE2-989B-77B229B41AD1}</msb:ProjectId>
+  </msb:PropertyGroup>
+  <msb:ItemGroup>
+    <msb:Project Include="SC_272fe906c7c7440ab6ebe318bfda4cd6.csproj" />
+    <msb:File Include="Properties\AssemblyInfo.cs" />
+    <msb:File Include="Properties\Settings.settings" />
+    <msb:File Include="packages.config" />
+    <msb:File Include="main.cs" />
+    <msb:File Include="BufferWrapper.cs" />
+    <msb:File Include="ComponentWrapper.cs" />
+    <msb:File Include="Properties\Resources.resx" />
+    <msb:File Include="Properties\Resources.Designer.cs" />
+    <msb:File Include="Properties\Settings.Designer.cs" />
+  </msb:ItemGroup>
+</c:Project>]]></arrayElement>
+                            <arrayElement
+                              dataType="System.String"><![CDATA[Properties\AssemblyInfo.cs]]></arrayElement>
+                            <arrayElement
+                              dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                            <arrayElement
+                              dataType="System.String"><![CDATA[using System.Reflection;
+using System.Runtime.CompilerServices;
+
+//
+// General Information about an assembly is controlled through the following 
+// set of attributes. Change these attribute values to modify the information
+// associated with an assembly.
+//
+[assembly: AssemblyTitle("SC_272fe906c7c7440ab6ebe318bfda4cd6")]
+[assembly: AssemblyDescription("")]
+[assembly: AssemblyConfiguration("")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("SC_272fe906c7c7440ab6ebe318bfda4cd6")]
+[assembly: AssemblyCopyright("Copyright @  2025")]
+[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCulture("")]
+//
+// Version information for an assembly consists of the following four values:
+//
+//      Major Version
+//      Minor Version 
+//      Build Number
+//      Revision
+//
+// You can specify all the values or you can default the Revision and Build Numbers 
+// by using the '*' as shown below:
+
+[assembly: AssemblyVersion("1.0.0.0")]
+]]></arrayElement>
+                            <arrayElement
+                              dataType="System.String"><![CDATA[Properties\Settings.settings]]></arrayElement>
+                            <arrayElement
+                              dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                            <arrayElement
+                              dataType="System.String"><![CDATA[<?xml version='1.0' encoding='iso-8859-1'?>
+<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
+  <Profiles>
+    <Profile Name="(Default)" />
+  </Profiles>
+  <Settings />
+</SettingsFile>]]></arrayElement>
+                            <arrayElement
+                              dataType="System.String"><![CDATA[Properties\Resources.Designer.cs]]></arrayElement>
+                            <arrayElement
+                              dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                            <arrayElement
+                              dataType="System.String"><![CDATA[//------------------------------------------------------------------------------
+// <auto-generated>
+//     This code was generated by a tool.
+//
+//     Changes to this file may cause incorrect behavior and will be lost if
+//     the code is regenerated.
+// </auto-generated>
+//------------------------------------------------------------------------------
+
+[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="SC_272fe906c7c7440ab6ebe318bfda4cd6.Properties.Resources.get_ResourceManager():System.Resources.Resou" +
+    "rceManager")]
+[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="SC_272fe906c7c7440ab6ebe318bfda4cd6.Properties.Resources.get_Culture():System.Globalization.CultureIn" +
+    "fo")]
+[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="SC_272fe906c7c7440ab6ebe318bfda4cd6.Properties.Resources.set_Culture(System.Globalization.CultureInfo" +
+    "):Void")]
+
+namespace SC_272fe906c7c7440ab6ebe318bfda4cd6.Properties {
+    
+    
+    /// <summary>
+    ///   A strongly-typed resource class, for looking up localized strings, etc.
+    /// </summary>
+    // This class was auto-generated by the StronglyTypedResourceBuilder
+    // class via a tool like ResGen or Visual Studio.
+    // To add or remove a member, edit your .ResX file then rerun ResGen
+    // with the /str option, or rebuild your VS project.
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+    internal class Resources {
+        
+        private static global::System.Resources.ResourceManager resourceMan;
+        
+        private static global::System.Globalization.CultureInfo resourceCulture;
+        
+        [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+        internal Resources() {
+        }
+        
+        /// <summary>
+        ///   Returns the cached ResourceManager instance used by this class.
+        /// </summary>
+        [global::System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        internal static global::System.Resources.ResourceManager ResourceManager {
+            get {
+                if ((resourceMan == null)) {
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SC_272fe906c7c7440ab6ebe318bfda4cd6.Properties.Resources", typeof(Resources).Assembly);
+                    resourceMan = temp;
+                }
+                return resourceMan;
+            }
+        }
+        
+        /// <summary>
+        ///   Overrides the current thread's CurrentUICulture property for all
+        ///   resource lookups using this strongly typed resource class.
+        /// </summary>
+        [global::System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        internal static global::System.Globalization.CultureInfo Culture {
+            get {
+                return resourceCulture;
+            }
+            set {
+                resourceCulture = value;
+            }
+        }
+    }
+}
+]]></arrayElement>
+                          </arrayElements>
+                        </property>
+                        <property
+                          dataType="System.String"
+                          description="Stores the binary representation of the component"
+                          isArray="true"
+                          name="BinaryCode"
+                          state="cdata">
+                          <arrayElements
+                            arrayElementCount="2">
+                            <arrayElement
+                              dataType="System.String"><![CDATA[SC_272fe906c7c7440ab6ebe318bfda4cd6.dll]]></arrayElement>
+                            <arrayElement
+                              dataType="System.String"><![CDATA[TVqQAAMAAAAEAAAA//8AALgAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAgAAAAA4fug4AtAnNIbgBTM0hVGhpcyBwcm9ncmFtIGNhbm5vdCBiZSBydW4gaW4gRE9TIG1v
+ZGUuDQ0KJAAAAAAAAABQRQAATAEDAOqQoWgAAAAAAAAAAOAAIiALATAAACAAAAAIAAAAAAAAXj4A
+AAAgAAAAQAAAAAAAEAAgAAAAAgAABAAAAAAAAAAGAAAAAAAAAACAAAAAAgAAAAAAAAMAYIUAABAA
+ABAAAAAAEAAAEAAAAAAAABAAAAAAAAAAAAAAAAw+AABPAAAAAEAAAEgEAAAAAAAAAAAAAAAAAAAA
+AAAAAGAAAAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAIAAACAAAAAAAAAAAAAAACCAAAEgAAAAAAAAAAAAAAC50ZXh0AAAAZB4AAAAgAAAAIAAAAAIA
+AAAAAAAAAAAAAAAAACAAAGAucnNyYwAAAEgEAAAAQAAAAAYAAAAiAAAAAAAAAAAAAAAAAABAAABA
+LnJlbG9jAAAMAAAAAGAAAAACAAAAKAAAAAAAAAAAAAAAAAAAQAAAQgAAAAAAAAAAAAAAAAAAAABA
+PgAAAAAAAEgAAAACAAUA/CQAAFgYAAABAAAAAAAAAFQ9AAC4AAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAB4CewEAAAQqIgIDfQEAAAQqHgJ7AgAABCoiAgN9AgAABCoe
+AigQAAAKKh4CewMAAAQqIgIDfQMAAAQqHgJ7BAAABCoiAgN9BAAABCoeAigRAAAKKh4CKBIAAAoq
+GzAHAAgCAAABAAARAnsGAAAEbyAAAAYKAnsGAAAEbyEAAAYTBBIEcgEAAHAoEwAACgsbjR8AAAEl
+FnIXAABwoiUXBqIlGHJxAABwoiUZB6IlGnJ1AABwoigUAAAKDHKRAABwDQIoFQAAChZykwAAcByN
+HwAAASUWcrMAAHCiJRcGoiUYcvcAAHCiJRkHoiUacgkBAHCiJRsIoigUAAAKfhYAAAoWFhMFEgVv
+FwAACggoGAAACnQiAAABJXIZAQBwbxkAAAolIIgTAABvGgAACm8bAAAKdBIAAAETCREJbxwAAApz
+HQAAChMKEQpvHgAACg3eDBEKLAcRCm8fAAAK3N4MEQksBxEJbx8AAArcCSgBAAArJW8BAAAGEwYl
+bwMAAAYWmm8GAAAGEwdvAwAABhaabwgAAAYTCAIoFQAAChZykwAAcByNHwAAASUWciEBAHCiJRcG
+oiUYcvcAAHCiJRkHoiUackUBAHCiJRsJoigUAAAKfhYAAAoWFhMFEgVvFwAACgJ7BwAABG8WAAAG
+AnsHAAAEEQZvEAAABgJ7BwAABBEHcgEAAHAUKCEAAApvEgAABgJ7BwAABBEIbxQAAAbeUBMLAigV
+AAAKFnJfAQBwHI0fAAABJRZygQEAcKIlFwaiJRhy9wAAcKIlGQeiJRpyyQEAcKIlGxELbyIAAAqi
+KBQAAApykQAAcBZvIwAACt4AKkFMAAACAAAA3gAAAAoAAADoAAAADAAAAAAAAAACAAAA0AAAACYA
+AAD2AAAADAAAAAAAAAAAAAAAowAAABQBAAC3AQAAUAAAABQAAAEeAigZAAAGKioCAwQFKCQAAAoq
+JgIWAyglAAAKKloDLAgCFigmAAAKKnLPAQBwcycAAAp6OgIXA4wRAAABKCUAAAoqWgMsCAIXKCYA
+AAoqcs8BAHBzJwAACno6AhgDjA8AAAEoJQAACipaAywIAhgoJgAACipyzwEAcHMnAAAKeh4CKCgA
+AAoqHgIoKQAACioeAigqAAAKKn4CKCsAAAoCAnMeAAAGfQUAAAQCAnMfAAAGfQYAAAQqBipuAnsH
+AAAELBICewcAAARvFwAABgIUfQcAAAQqAAATMAUASQAAAAIAABEWCisuBAaUDgRybAIAcCgsAAAK
+MxkCBQaaAgQGlCgtAAAKDgRzDwAABn0HAAAEBhdYCgYDMs4Cbx0AAAYCbxoAAAYCKBsAAAYqOgIo
+EAAACgIDfQgAAAQqOgIoEAAACgIDfQkAAAQqlgJ7CQAABG8uAAAKcnwCAHBvLwAACigwAAAKbzEA
+AAp0HwAAASqWAnsJAAAEby4AAApyjgIAcG8vAAAKKDAAAApvMQAACqURAAABKq5+CgAABC0ecqYC
+AHDQCQAAAigyAAAKbzMAAApzNAAACoAKAAAEfgoAAAQqGn4LAAAEKh4CgAsAAAQqGn4MAAAEKh4C
+KDUAAAoqLnMnAAAGgAwAAAQqAAAAQlNKQgEAAQAAAAAADAAAAHY0LjAuMzAzMTkAAAAABQBsAAAA
+iAgAACN+AAD0CAAA2AkAACNTdHJpbmdzAAAAAMwSAAAYAwAAI1VTAOQVAAAQAAAAI0dVSUQAAAD0
+FQAAZAIAACNCbG9iAAAAAAAAAAIAAAFXFaIBCQkAAAD6ATMAFgAAAQAAADAAAAAKAAAADAAAACgA
+AAAUAAAANQAAABwAAAACAAAABgAAAA8AAAAUAAAAAQAAAAcAAAABAAAAAQAAAAAAsAQBAAAAAAAG
+AJQDIwcGACgEIwcGAOACEAcPAJcHAAAGAA0DmwUGAHcDmwUGAFgDmwUGAA8EmwUGALQDmwUGAM0D
+mwUGACQDmwUGAD8DYwQGAIAIQwUGAKgCIwcGAJIEQwUKAOgDwQEGALgBQwUOACcChwgGAEIGjAAG
+AL0FQwUKAIcGwQESAHgGwQEKAOMFwQEKAMsIwQEGAMMCEAcGAJgGQwcGANcFhgUOAJMCmgQOAPQC
+mgQOAA8CcQUGAIsEQwUWAAEA0AYOAAgJhwgOAAQJhwgOACsChwgGACoFjAAGAE8GjAAGAIgBQwUa
+APgIxwUGAFoGQwUGAK0FQwUeACoAqAYeABoAqAZjAGAJAAAeADsAqAYGAOIBQwUGAJQBQwUGAMcJ
+mwUAAAAAdwAAAAAAAQABAAEAEAB/AgAANQABAAEAAQAQAIcCAAA1AAMABgABABAAVgUAABgABQAL
+AAEAEABqBgAAVQAFAA8AAQAQAK0IAABhAAUAGQABABAALQgAADUACAAeAAEAEADhBwAANQAJAB8A
+AAAQAEoHpgc1AAoAIgAAARAAJAimB3kADAAmAAEA+QBAAAEALgH8AAEADwFAAAEA5AABAQYALQgF
+AQYA4QcJAQYAagYNAQEAuwgRAQEAuwgRAREASgUVAREA/wEZAREAWgEdAVAgAAAAAIYIagFoAAEA
+WCAAAAAAhghzARAAAQBhIAAAAACGCOsHIQECAGkgAAAAAIYI9QcnAQIAciAAAAAAhhj5BgYAAwB6
+IAAAAACGCEsCaAADAIIgAAAAAIYIXQIQAAMAiyAAAAAAhgjUAC4BBACTIAAAAACGCNwAMwEEAHIg
+AAAAAIYY+QYGAAUAnCAAAAAAxgBGBAYABQCkIAAAAADGAFEEBgAFAKwgAAAAAMYATwgGAAUADCMA
+AAAAhhj5BgYABQAUIwAAAACGGPkGiwAFAB8jAAAAAIYIrAAQAAgAKSMAAAAAhgjYBDkBCQBAIwAA
+AACGCJAJPgEKAE8jAAAAAIYI6gQ5AQsAZiMAAAAAhgieCTMBDAB1IwAAAACGCP8EOQENAIwjAAAA
+AIYArwkGAA4AlCMAAAAAhgCSCAYADgCcIwAAAACGAJUImwAOAKQjAAAAAIYY+QYGAA4AxCMAAAAA
+xgFBCAYADgDGIwAAAACBAMAABgAOAOQjAAAAAMYAQAlEAQ4AxCMAAAAAxgFPCAYAEgA5JAAAAACG
+GPkGUAESAEgkAAAAAIYY+QZQARMAVyQAAAAAhgi2CWgAFAB9JAAAAACGCG8CVgEUAHIgAAAAAIMY
++QYGABQAoyQAAAAAkwiUBlsBFADPJAAAAACTCOcBYAEUANYkAAAAAJMI8wFlARQA3iQAAAAAlgih
+CGsBFQDlJAAAAACGGPkGBgAVAO0kAAAAAJEY/wZwARUAAAABAF0EAAABAF0EAAABAF0EAAABAF0E
+AAABAI0GAAACAP8HAAADAPEFAAABAF0EAAABAF0EAAABAF0EAAABAF0EAAABAF0EAAABAF0EAAAB
+AEcIAAACAAYHAAADADkIAAAEAPEFAAABANEIAAABANEIAAABAF0ECQD5BgEAEQD5BgYAGQD5BgoA
+KQD5BhAAMQD5BhAAOQD5BhAAQQD5BhAASQD5BhAAUQD5BhAAWQD5BhAAYQD5BhAAcQD5BgYAgQD5
+BgYAyQD5BgYA6QD5BhUAaQD5BgYAwQBGBAYAwQBRBAYAiQCJBC8A+QBjCDQAwQCWADoA+QDQCUAA
+AQFhBUMACQGMAk4ACQFPARAACQE0CQEACQE3AlUAGQEfBVsAmQD5BmEAKQFFAWgAMQFDAgYAOQF1
+CGwAiQBqCHgAoQB8AWgAAQF9BIIAqQD5BosAqQA6BZUAqQAXBQEASQH5BhAAqQCvCQYAqQCSCAYA
+qQCVCJsAwQD5BgYAwQCAAKMAwQATCKoAwQDVB7AAUQExBbYAwQB7Cb0AWQFMCcMAcQGmAcoAcQHD
+CdMA0QD5BtkA8QD5BgYAIABjAFwCIQBjAFwCLgALAJsBLgATAKQBLgAbAMMBLgAjAMwBLgArAPUB
+LgAzAPUBLgA7APUBLgBDAMwBLgBLAPsBLgBTAPUBLgBbABICQABjAFwCQQBjAFwCYABjAFwCYQBj
+AFwCgABjAFwCgQBjAFwCgwBrAFwCwABjAFwC4ABjAFwCAAFjAFwCIAFjAFwCIwFzAFwCgQFjAFwC
+qQF7AMMByQF7AMMBGwCfAAIAAQADAAMABQAFAAgACwAJAA0ACgAPAAAAdwF0AQAA+Qd4AQAAYQJ0
+AQAA4AB+AQAAsAB0AQAA3ASDAQAAlAmHAQAA7gSDAQAAogl+AQAAAwWDAQAAugl0AQAAcwKHAQAA
+mAaMAQAABwKRAQAApQiWAQIAAQADAAEAAgADAAIAAwAFAAEABAAFAAIABgAHAAEABwAHAAIACAAJ
+AAEACQAJAAEAEAALAAEAEQANAAEAEgAPAAEAEwARAAEAFAATAAEAFQAVAAIAIAAXAAIAIQAZAAIA
+IwAbAAIAJAAdAAEAJQAdAAIAJgAfAASAAAABAAAAAAAAAAAAAAAAAFMAAAAEAAAAAAAAAAAAAADh
+ALcAAAAAABAAAAAAAAAAAAAAAOoA2wgAAAAABAAAAAAAAAAAAAAA4QBDBQAAAAAQAAAAAAAAAAAA
+AADqABMJAAAAABAAAAAAAAAAAAAAAOoAHgYAAAAADQAAAAAAAAAAAAAA8wDHBQAAAAAQAAAAAAAA
+AAAAAADqAPsFAAAAAAAAAAABAAAAVAcAAEEAcwAAAAAAAElEVFNDb21wb25lbnRNZXRhRGF0YTEw
+MABJRFRTVmFyaWFibGUxMDAASURUU1ZhcmlhYmxlczEwMABJRFRTRXZhbHVhdG9yQ29udGV4dDEw
+MABTQ18yNzJmZTkwNmM3Yzc0NDBhYjZlYmUzMThiZmRhNGNkNgA8TW9kdWxlPgBHZXRPdXRwdXRJ
+RABTeXN0ZW0uSU8AZ2V0X0NvbXBvbmVudE1ldGFEYXRhAHNldF9XYWx1dGEAbXNjb3JsaWIATWFy
+a091dHB1dHNGaW5pc2hlZABnZXRfbWlkAHNldF9taWQAPG1pZD5rX19CYWNraW5nRmllbGQAPGNv
+ZGU+a19fQmFja2luZ0ZpZWxkADxlZmZlY3RpdmVEYXRlPmtfX0JhY2tpbmdGaWVsZAA8cmF0ZXM+
+a19fQmFja2luZ0ZpZWxkAFJlYWRUb0VuZABzZXRfTWV0aG9kAGRlZmF1bHRJbnN0YW5jZQBnZXRf
+Y29kZQBzZXRfY29kZQBnZXRfTWVzc2FnZQBJRGlzcG9zYWJsZQBSdW50aW1lVHlwZUhhbmRsZQBH
+ZXRUeXBlRnJvbUhhbmRsZQBEYXRlVGltZQBNaWNyb3NvZnQuU3FsU2VydmVyLkR0cy5QaXBlbGlu
+ZQBUeXBlAGdldF9DdWx0dXJlAHNldF9DdWx0dXJlAHJlc291cmNlQ3VsdHVyZQBBcHBsaWNhdGlv
+blNldHRpbmdzQmFzZQBIdHRwV2ViUmVzcG9uc2UAR2V0UmVzcG9uc2UARGlzcG9zZQBnZXRfZWZm
+ZWN0aXZlRGF0ZQBzZXRfZWZmZWN0aXZlRGF0ZQBnZXRfQ3VycmVudERhdGUARXhjaGFuZ2VSYXRl
+AENyZWF0ZQBFZGl0b3JCcm93c2FibGVTdGF0ZQBDb21waWxlckdlbmVyYXRlZEF0dHJpYnV0ZQBE
+ZWJ1Z2dlck5vblVzZXJDb2RlQXR0cmlidXRlAERlYnVnZ2FibGVBdHRyaWJ1dGUARWRpdG9yQnJv
+d3NhYmxlQXR0cmlidXRlAEFzc2VtYmx5VGl0bGVBdHRyaWJ1dGUAQXNzZW1ibHlUcmFkZW1hcmtB
+dHRyaWJ1dGUAVGFyZ2V0RnJhbWV3b3JrQXR0cmlidXRlAEFzc2VtYmx5Q29uZmlndXJhdGlvbkF0
+dHJpYnV0ZQBBc3NlbWJseURlc2NyaXB0aW9uQXR0cmlidXRlAENvbXBpbGF0aW9uUmVsYXhhdGlv
+bnNBdHRyaWJ1dGUAQXNzZW1ibHlQcm9kdWN0QXR0cmlidXRlAEFzc2VtYmx5Q29weXJpZ2h0QXR0
+cmlidXRlAFNTSVNTY3JpcHRDb21wb25lbnRFbnRyeVBvaW50QXR0cmlidXRlAEFzc2VtYmx5Q29t
+cGFueUF0dHJpYnV0ZQBSdW50aW1lQ29tcGF0aWJpbGl0eUF0dHJpYnV0ZQBQcmVFeGVjdXRlAFBv
+c3RFeGVjdXRlAHZhbHVlAFN5c3RlbS5SdW50aW1lLlZlcnNpb25pbmcARmlyZVdhcm5pbmcAVG9T
+dHJpbmcARGVjaW1hbABTeXN0ZW0uQ29tcG9uZW50TW9kZWwAU0NfMjcyZmU5MDZjN2M3NDQwYWI2
+ZWJlMzE4YmZkYTRjZDYuZGxsAHNldF9XYWx1dGFfSXNOdWxsAHNldF9EYXRhS3Vyc3VfSXNOdWxs
+AHNldF9XYXJ0b3NjS3Vyc3VfSXNOdWxsAFNldE51bGwAR2V0UmVzcG9uc2VTdHJlYW0AZ2V0X0l0
+ZW0Ac2V0X0l0ZW0AU3lzdGVtAHJlc291cmNlTWFuAFNjcmlwdE1haW4ARmlyZUluZm9ybWF0aW9u
+AFN5c3RlbS5Db25maWd1cmF0aW9uAFN5c3RlbS5HbG9iYWxpemF0aW9uAFN5c3RlbS5SZWZsZWN0
+aW9uAEludmFsaWRPcGVyYXRpb25FeGNlcHRpb24ATmV3dG9uc29mdC5Kc29uAEN1bHR1cmVJbmZv
+AE91dHB1dE5hbWVNYXAAT3V0cHV0TWFwAE1pY3Jvc29mdC5TcWxTZXJ2ZXIuRFRTUnVudGltZVdy
+YXAATWljcm9zb2Z0LlNxbFNlcnZlci5EVFNQaXBlbGluZVdyYXAAU3RyZWFtUmVhZGVyAFRleHRS
+ZWFkZXIASUZvcm1hdFByb3ZpZGVyAE91dHB1dDBCdWZmZXIAUGlwZWxpbmVCdWZmZXIAU2NyaXB0
+QnVmZmVyAGdldF9SZXNvdXJjZU1hbmFnZXIATWljcm9zb2Z0LlNxbFNlcnZlci5EdHMuUnVudGlt
+ZS5XcmFwcGVyAE1pY3Jvc29mdC5TcWxTZXJ2ZXIuRHRzLlBpcGVsaW5lLldyYXBwZXIALmN0b3IA
+LmNjdG9yAE91dHB1dElEcwBTeXN0ZW0uRGlhZ25vc3RpY3MAU3lzdGVtLlJ1bnRpbWUuQ29tcGls
+ZXJTZXJ2aWNlcwBTeXN0ZW0uUmVzb3VyY2VzAFNDXzI3MmZlOTA2YzdjNzQ0MGFiNmViZTMxOGJm
+ZGE0Y2Q2LlByb3BlcnRpZXMuUmVzb3VyY2VzLnJlc291cmNlcwBEZWJ1Z2dpbmdNb2RlcwBTQ18y
+NzJmZTkwNmM3Yzc0NDBhYjZlYmUzMThiZmRhNGNkNi5Qcm9wZXJ0aWVzAGdldF9SZWFkT25seVZh
+cmlhYmxlcwBnZXRfcmF0ZXMAc2V0X3JhdGVzAEJ1ZmZlckNvbHVtbkluZGV4ZXMAR2V0Q29sdW1u
+SW5kZXhlcwBTZXR0aW5ncwBDb25uZWN0aW9ucwBCdWZmZXJzAEZpbmlzaE91dHB1dHMAQ3JlYXRl
+TmV3T3V0cHV0Um93cwBDb25jYXQAUGFyc2VFeGFjdABEZXNlcmlhbGl6ZU9iamVjdABTeXN0ZW0u
+TmV0AFNldEVuZE9mUm93c2V0AGdldF9EZWZhdWx0AFVzZXJDb21wb25lbnQAUGFyZW50Q29tcG9u
+ZW50AFNjcmlwdENvbXBvbmVudABNaWNyb3NvZnQuU3FsU2VydmVyLlR4U2NyaXB0AEpzb25Db252
+ZXJ0AEh0dHBXZWJSZXF1ZXN0AE1pY3Jvc29mdC5TcWxTZXJ2ZXIuUGlwZWxpbmVIb3N0AHNldF9U
+aW1lb3V0AFByaW1lT3V0cHV0AEdldFZhbHVlV2l0aENvbnRleHQAU2NyaXB0Q29tcG9uZW50RXZh
+bENvbnRleHQAZ2V0X0V2YWx1YXRvckNvbnRleHQAc2V0X0RhdGFLdXJzdQBzZXRfV2FydG9zY0t1
+cnN1AEFkZFJvdwBnZXRfQ3VycmVuY3kAZ2V0X0Fzc2VtYmx5AEVtcHR5AAAAABV5AHkAeQB5AC0A
+TQBNAC0AZABkAAFZaAB0AHQAcAA6AC8ALwBhAHAAaQAuAG4AYgBwAC4AcABsAC8AYQBwAGkALwBl
+AHgAYwBoAGEAbgBnAGUAcgBhAHQAZQBzAC8AcgBhAHQAZQBzAC8AYQAvAAADLwAAGy8APwBmAG8A
+cgBtAGEAdAA9AGoAcwBvAG4AAAEAH1MAYwByAGkAcAB0AEMAbwBtAHAAbwBuAGUAbgB0AABDUgBv
+AHoAcABvAGMAegAZAXQAbwAgAHAAbwBiAGkAZQByAGEAbgBpAGUAIABkAGEAbgB5AGMAaAAgAGQA
+bABhACAAAREgAHoAIABkAG4AaQBhACAAAA8sACAAdQByAHMAOgAgAAAHRwBFAFQAACNQAG8AYgBy
+AGEAbgBvACAAZABhAG4AZQAgAGQAbABhACAAABksACAAcgBlAHMAcABvAG4AcwBlADoAIAAAIVMA
+YwByAGkAcAB0ACAAQwBvAG0AcABvAG4AZQBuAHQAAEdCAEIBBQFkACAAcABvAGQAYwB6AGEAcwAg
+AHAAbwBiAGkAZQByAGEAbgBpAGEAIABkAGEAbgB5AGMAaAAgAGQAbABhACAAAQU6ACAAAICbSQBz
+AE4AdQBsAGwAIABwAHIAbwBwAGUAcgB0AHkAIABjAGEAbgBuAG8AdAAgAGIAZQAgAHMAZQB0ACAA
+dABvACAARgBhAGwAcwBlAC4AIABBAHMAcwBpAGcAbgAgAGEAIAB2AGEAbAB1AGUAIAB0AG8AIAB0
+AGgAZQAgAGMAbwBsAHUAbQBuACAAaQBuAHMAdABlAGEAZAAuAAAPTwB1AHQAcAB1AHQAMAAAEUMA
+dQByAHIAZQBuAGMAeQAAF0MAdQByAHIAZQBuAHQARABhAHQAZQAAcVMAQwBfADIANwAyAGYAZQA5
+ADAANgBjADcAYwA3ADQANAAwAGEAYgA2AGUAYgBlADMAMQA4AGIAZgBkAGEANABjAGQANgAuAFAA
+cgBvAHAAZQByAHQAaQBlAHMALgBSAGUAcwBvAHUAcgBjAGUAcwAAMWReaxAUnEWeFU1vte9TxgAE
+IAEBCAMgAAEFIAEBEREEIAEBDgUgAQERcRMHDA4ODg4RRQIODhE9EkkSTRJRBCABDg4FAAEOHQ4F
+IAASgIECBg4KIAYBCA4ODggQAgYAARKAhQ4FIAASgI0FIAASgJEGIAEBEoCRAyAADgYQAQEeAA4E
+CgESCAkAAxFFDg4SgKEIIAUBCA4ODggJIAMBElkdCBJdBSACAQgcAyAAAgMHAQgGAAIIEl0OBSAB
+HQgIBSAAEoCpBiABEoCtHAUAABKAsQYgARwSgLUIAAESgLkRgL0FIAASgMEHIAIBDhKAwQi3elxW
+GTTgiQiJhF3NgIDMkQgwrU/msqau7QQGHRIMAwYRPQMGEhwDBhIgAwYSFAMGEmEDBhJpAwYSbQMG
+EigFIAAdEgwGIAEBHRIMBCAAET0FIAEBET0EIAEBAgUgAQERRQsgBAEIHQgdElkSXQUgAQESYQQg
+ABFFBAAAEmkEAAASbQUAAQESbQQAABIoAwAAAQMoAA4FKAAdEgwEKAARPQMoAAIEKAARRQQIABJp
+BAgAEm0ECAASKAgBAAgAAAAAAB4BAAEAVAIWV3JhcE5vbkV4Y2VwdGlvblRocm93cwEIAQACAAAA
+AAAoAQAjU0NfMjcyZmU5MDZjN2M3NDQwYWI2ZWJlMzE4YmZkYTRjZDYAAAUBAAAAABYBABFDb3B5
+cmlnaHQgQCAgMjAyNQAASQEAGi5ORVRGcmFtZXdvcmssVmVyc2lvbj12NC43AQBUDhRGcmFtZXdv
+cmtEaXNwbGF5TmFtZRIuTkVUIEZyYW1ld29yayA0LjcEAQAAAAAAALQAAADOyu++AQAAAJEAAABs
+U3lzdGVtLlJlc291cmNlcy5SZXNvdXJjZVJlYWRlciwgbXNjb3JsaWIsIFZlcnNpb249NC4wLjAu
+MCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5I1N5c3Rl
+bS5SZXNvdXJjZXMuUnVudGltZVJlc291cmNlU2V0AgAAAAAAAAAAAAAAUEFEUEFEULQAAAA0PgAA
+AAAAAAAAAABOPgAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQD4AAAAAAAAAAAAAAABfQ29yRGxs
+TWFpbgBtc2NvcmVlLmRsbAAAAAAA/yUAIAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAQ
+AAAAGAAAgAAAAAAAAAAAAAAAAAAAAQABAAAAMAAAgAAAAAAAAAAAAAAAAAAAAQAAAAAASAAAAFhA
+AADsAwAAAAAAAAAAAADsAzQAAABWAFMAXwBWAEUAUgBTAEkATwBOAF8ASQBOAEYATwAAAAAAvQTv
+/gAAAQAAAAEAAAAAAAAAAQAAAAAAPwAAAAAAAAAEAAAAAgAAAAAAAAAAAAAAAAAAAEQAAAABAFYA
+YQByAEYAaQBsAGUASQBuAGYAbwAAAAAAJAAEAAAAVAByAGEAbgBzAGwAYQB0AGkAbwBuAAAAAAAA
+ALAETAMAAAEAUwB0AHIAaQBuAGcARgBpAGwAZQBJAG4AZgBvAAAAKAMAAAEAMAAwADAAMAAwADQA
+YgAwAAAAGgABAAEAQwBvAG0AbQBlAG4AdABzAAAAAAAAACIAAQABAEMAbwBtAHAAYQBuAHkATgBh
+AG0AZQAAAAAAAAAAAHAAJAABAEYAaQBsAGUARABlAHMAYwByAGkAcAB0AGkAbwBuAAAAAABTAEMA
+XwAyADcAMgBmAGUAOQAwADYAYwA3AGMANwA0ADQAMABhAGIANgBlAGIAZQAzADEAOABiAGYAZABh
+ADQAYwBkADYAAAAwAAgAAQBGAGkAbABlAFYAZQByAHMAaQBvAG4AAAAAADEALgAwAC4AMAAuADAA
+AABwACgAAQBJAG4AdABlAHIAbgBhAGwATgBhAG0AZQAAAFMAQwBfADIANwAyAGYAZQA5ADAANgBj
+ADcAYwA3ADQANAAwAGEAYgA2AGUAYgBlADMAMQA4AGIAZgBkAGEANABjAGQANgAuAGQAbABsAAAA
+SAASAAEATABlAGcAYQBsAEMAbwBwAHkAcgBpAGcAaAB0AAAAQwBvAHAAeQByAGkAZwBoAHQAIABA
+ACAAIAAyADAAMgA1AAAAKgABAAEATABlAGcAYQBsAFQAcgBhAGQAZQBtAGEAcgBrAHMAAAAAAAAA
+AAB4ACgAAQBPAHIAaQBnAGkAbgBhAGwARgBpAGwAZQBuAGEAbQBlAAAAUwBDAF8AMgA3ADIAZgBl
+ADkAMAA2AGMANwBjADcANAA0ADAAYQBiADYAZQBiAGUAMwAxADgAYgBmAGQAYQA0AGMAZAA2AC4A
+ZABsAGwAAABoACQAAQBQAHIAbwBkAHUAYwB0AE4AYQBtAGUAAAAAAFMAQwBfADIANwAyAGYAZQA5
+ADAANgBjADcAYwA3ADQANAAwAGEAYgA2AGUAYgBlADMAMQA4AGIAZgBkAGEANABjAGQANgAAADQA
+CAABAFAAcgBvAGQAdQBjAHQAVgBlAHIAcwBpAG8AbgAAADEALgAwAC4AMAAuADAAAAA4AAgAAQBB
+AHMAcwBlAG0AYgBsAHkAIABWAGUAcgBzAGkAbwBuAAAAMQAuADAALgAwAC4AMAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwAAAMAAAAYD4AAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA]]></arrayElement>
+                          </arrayElements>
+                        </property>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the name of the Microsoft Visual Studio Tools for Applications project. Project names must be unique within a package."
+                          name="VSTAProjectName"
+                          typeConverter="NOTBROWSABLE">SC_272fe906c7c7440ab6ebe318bfda4cd6</property>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the programming language used by the script."
+                          name="ScriptLanguage"
+                          typeConverter="Microsoft.SqlServer.VSTAHosting.ScriptingLanguages">CSharp</property>
+                        <property
+                          dataType="System.String"
+                          description="Specifies a comma-separated list of read-only variables."
+                          name="ReadOnlyVariables"
+                          UITypeEditor="Microsoft.DataTransformationServices.Controls.ScriptUIVariablePickerDlg">User::Currency,User::CurrentDate</property>
+                        <property
+                          dataType="System.String"
+                          description="Specifies a comma-separated list of read/write variables."
+                          name="ReadWriteVariables"
+                          UITypeEditor="Microsoft.DataTransformationServices.Controls.ScriptUIWriteableVariablePickerDlg"></property>
+                        <property
+                          dataType="System.String"
+                          description="List of breakpoints present on the script."
+                          isArray="true"
+                          name="BreakpointCollection"
+                          typeConverter="NOTBROWSABLE">
+                          <arrayElements
+                            arrayElementCount="0" />
+                        </property>
+                        <property
+                          dataType="System.String"
+                          description="Checksum to match component metedata against compiled codes."
+                          name="MetadataChecksum140"
+                          typeConverter="NOTBROWSABLE">31</property>
+                        <property
+                          dataType="System.String"
+                          name="UserComponentTypeName">Microsoft.ScriptComponentHost</property>
+                      </properties>
+                      <outputs>
+                        <output
+                          refId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\Script Component Dane z serwisu NBP.Outputs[Output0]"
+                          hasSideEffects="true"
+                          name="Output0">
+                          <outputColumns>
+                            <outputColumn
+                              refId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\Script Component Dane z serwisu NBP.Outputs[Output0].Columns[Waluta]"
+                              codePage="1250"
+                              dataType="str"
+                              length="3"
+                              lineageId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\Script Component Dane z serwisu NBP.Outputs[Output0].Columns[Waluta]"
+                              name="Waluta" />
+                            <outputColumn
+                              refId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\Script Component Dane z serwisu NBP.Outputs[Output0].Columns[DataKursu]"
+                              dataType="date"
+                              lineageId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\Script Component Dane z serwisu NBP.Outputs[Output0].Columns[DataKursu]"
+                              name="DataKursu" />
+                            <outputColumn
+                              refId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\Script Component Dane z serwisu NBP.Outputs[Output0].Columns[WartoscKursu]"
+                              dataType="decimal"
+                              lineageId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\Script Component Dane z serwisu NBP.Outputs[Output0].Columns[WartoscKursu]"
+                              name="WartoscKursu"
+                              scale="4" />
+                          </outputColumns>
+                          <externalMetadataColumns />
+                        </output>
+                      </outputs>
+                    </component>
+                  </components>
+                  <paths>
+                    <path
+                      refId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli.Paths[Data Conversion Output]"
+                      endId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                      name="Data Conversion Output"
+                      startId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\Data Conversion.Outputs[Data Conversion Output]" />
+                    <path
+                      refId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli.Paths[Derived Column Output]"
+                      endId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\Data Conversion.Inputs[Data Conversion Input]"
+                      name="Derived Column Output"
+                      startId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\Derived Column.Outputs[Derived Column Output]" />
+                    <path
+                      refId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli.Paths[Output0]"
+                      endId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\Derived Column.Inputs[Derived Column Input]"
+                      name="Output0"
+                      startId="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\Script Component Dane z serwisu NBP.Outputs[Output0]" />
+                  </paths>
+                </pipeline>
+              </DTS:ObjectData>
+            </DTS:Executable>
+          </DTS:Executables>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:ForEachVariableMappings>
+        <DTS:ForEachVariableMapping
+          DTS:CreationName=""
+          DTS:DTSID="{83802B0E-1C97-4104-953E-7745D221D992}"
+          DTS:ObjectName="{83802B0E-1C97-4104-953E-7745D221D992}"
+          DTS:ValueIndex="0"
+          DTS:VariableName="User::Currency" />
+      </DTS:ForEachVariableMappings>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SQL Licza wpisow w tabeli KursyWalut"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{23A9E277-B72A-40A3-8BF1-7C72B9144C35}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL Licza wpisow w tabeli KursyWalut"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{DEBF2635-AA58-45C0-90A2-16E50109E296}"
+          SQLTask:SqlStatementSource="SELECT COUNT(*) count FROM dbo.KursyWalut"
+          SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ResultBinding
+            SQLTask:ResultName="count"
+            SQLTask:DtsVariableName="User::IsTableEmpty" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{DD23211B-F27C-4913-9AD5-D5634C79CB38}"
+      DTS:From="Package\SQL Licza wpisow w tabeli KursyWalut"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Expression Czy piersze wykonanie" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{7B48048D-CED8-411B-A181-D3974AD59AF6}"
+      DTS:From="Package\Expression Czy piersze wykonanie"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Expression Ustawienie dat" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{4E0FAE6C-611D-4D4F-802A-CBE9E2ECE369}"
+      DTS:From="Package\Expression Ustawienie dat"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\Foreach Loop Container Pętla po walutach" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="249,42"
+          Id="Package\Expression Czy piersze wykonanie"
+          TopLeft="49,190" />
+        <NodeLayout
+          Size="209,42"
+          Id="Package\Expression Ustawienie dat"
+          TopLeft="67,277" />
+        <NodeLayout
+          Size="263,184"
+          Id="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli"
+          TopLeft="25,6" />
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="313,212"
+          Size="313,255"
+          Id="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach"
+          TopLeft="46,27" />
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="392,370"
+          Size="392,413"
+          Id="Package\Foreach Loop Container Pętla po walutach"
+          TopLeft="408,70" />
+        <NodeLayout
+          Size="268,42"
+          Id="Package\SQL Licza wpisow w tabeli KursyWalut"
+          TopLeft="43,114" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="175.25,156">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,34"
+              Start="0,0"
+              End="0,26.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,26.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="172.5,232">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,45"
+              Start="0,0"
+              End="0,37.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,37.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="276,298">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="132,-21.5"
+              Start="0,0"
+              End="124.5,-21.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="62,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="62,0"
+                    Point2="66,0"
+                    Point3="66,-4" />
+                  <mssgle:LineSegment
+                    End="66,-17.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="66,-17.5"
+                    Point2="66,-21.5"
+                    Point3="70,-21.5" />
+                  <mssgle:LineSegment
+                    End="124.5,-21.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="177,42"
+          Id="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\OLE DB Destination"
+          TopLeft="236,332" />
+        <NodeLayout
+          Size="158,42"
+          Id="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\Derived Column"
+          TopLeft="243,122" />
+        <NodeLayout
+          Size="161,42"
+          Id="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\Data Conversion"
+          TopLeft="246,222" />
+        <NodeLayout
+          Size="270,42"
+          Id="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\Script Component Dane z serwisu NBP"
+          TopLeft="191,18" />
+        <EdgeLayout
+          Id="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli.Paths[Output0]"
+          TopLeft="324,60">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,62"
+              Start="0,0"
+              End="0,54.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,54.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli.Paths[Derived Column Output]"
+          TopLeft="324.25,164">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,58"
+              Start="0,0"
+              End="0,50.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,50.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli.Paths[Data Conversion Output]"
+          TopLeft="325.5,264">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,68"
+              Start="0,0"
+              End="0,60.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,60.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Foreach Loop Container Pętla po walutach\For Loop Container Pętla po datach\Data Flow Task Pobranie i wczytanie danych do tabeli\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
